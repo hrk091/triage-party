@@ -23,6 +23,7 @@ WORKDIR /app
 # Build the binary
 ENV SRC_DIR=/src/tparty
 ENV GO111MODULE=on
+ENV CGO_ENABLED=0
 RUN mkdir -p ${SRC_DIR}/cmd ${SRC_DIR}/third_party ${SRC_DIR}/pkg ${SRC_DIR}/site /app/third_party /app/site
 COPY go.* $SRC_DIR/
 COPY cmd ${SRC_DIR}/cmd/
