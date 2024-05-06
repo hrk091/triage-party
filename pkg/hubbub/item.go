@@ -84,7 +84,12 @@ func (h *Engine) createConversation(i provider.IItem, cs []*provider.Comment, ag
 	co.Project = urlParts[4]
 	h.parseRefs(i.GetBody(), co, i.GetUpdatedAt())
 
-	if i.GetAssignee() != nil {
+	// TODO: Following is not committed to the upstream, create a PR for this after following PR is merged
+	//  https://github.com/google/triage-party/pull/292
+	if i.GetAssignees() != nil {
+		co.Assignees = append(co.Assignees, i.GetAssignees()...)
+		co.Tags[tag.Assigned] = true
+	} else if i.GetAssignee() != nil {
 		co.Assignees = append(co.Assignees, i.GetAssignee())
 		co.Tags[tag.Assigned] = true
 	}
